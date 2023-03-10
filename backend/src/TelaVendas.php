@@ -66,7 +66,9 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <title>Teste Softexpert</title>
 </head>
 
@@ -75,7 +77,7 @@
     <div>
         <h1 align="left">Lista de Produtos</h1>
         <div>
-            <table>
+            <table class="table">
                 <tr>
                     <th>Nome</th>
                     <th>Tipo</th>
@@ -114,7 +116,7 @@
         <div>
             <h1 align="left">Carrinho</h1>
             <div>
-                <table>
+                <table class="table">
                     <tr>
                         <th>Nome</th>
                         <th>Qtd</th>
@@ -152,27 +154,24 @@
             </div>
         </div>
         <div>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Valor total da compra:</td>
-                        <td></td>
-                        <td>R$<?php echo number_format($total, 2, ',', '.'); ?></td>
-                    </tr>
-                    <tr>
-                        <td>Valor total de impostos:</td>
-                        <td></td>
-                        <td>R$<?php echo number_format($totalImposto, 2, ',', '.'); ?></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="p-2">
+                <h3 class="d-inline">Valor total da compra:</h3>
+                <h3 class="d-inline">R$<?php echo number_format($total, 2, ',', '.'); ?></h3>
+            </div>
+            <div class="p-2">
+                <h3 class="d-inline">Valor total dos impostos:</h3>
+                <h3 class="d-inline">R$<?php echo number_format($totalImposto, 2, ',', '.'); ?></h3>
+                
+            </div>
+
             <form method="POST" action="TelaVendas.php">
-                <button type="submit" name="save"><h3>Salvar Venda</h3></button>
+                <button class="btn btn-success m-2" type="submit" name="save"><h3>Salvar Venda</h3></button>
             </form>
         </div>
     <?php
     }
     ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 
 </html>
