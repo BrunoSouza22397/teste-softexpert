@@ -3,6 +3,9 @@ namespace TesteSoftexpert\Backend\Models;
 
 use TesteSoftexpert\Backend\Connection;
 
+/**
+ * classe modelo para a tabela Tipos
+ */
 class Tipo
 {
     private $id;

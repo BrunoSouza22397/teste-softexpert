@@ -6,9 +6,15 @@
     use TesteSoftexpert\Backend\Models\Venda;
 
     $db = new Connection();
+    //busca lista de produtos
     $listaProdutos = $db->buscarProdutos();
 
+    //adição de item ao carrinho
     if (isset($_POST["add"])) {
+        /**
+         * cria o objeto de sessão do carrinho caso ele não exista,
+         * ou simplesmente adiciona o produto ao carrinho caso a sessão já exista.
+         */
         if (isset($_SESSION["carrinho"])) {
             $idProduto = array_column($_SESSION["carrinho"], "prod_id");
             if (!in_array($_GET["prod_id"], $idProduto)) {
@@ -40,6 +46,7 @@
         }
     }
     
+    //remove item do carrinho
     if (isset($_GET["action"])) {
         if ($_GET["action"] == "delete") {
             foreach ($_SESSION["carrinho"] as $keys => $valor) {
@@ -51,6 +58,7 @@
         }
     }
 
+    //salva a venda no banco de dados
     if (isset($_POST['save'])){
         foreach ($_SESSION["carrinho"] as $key => $valor) {
             $produto = $valor['prod_id'];

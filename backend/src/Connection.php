@@ -2,6 +2,9 @@
 
 namespace TesteSoftexpert\Backend;
 
+/**
+ * Classe responsável por controlar conexão com o banco e realizar buscas
+ */
 class Connection
 {
     private $db;
@@ -12,29 +15,21 @@ class Connection
             or exit('Could not connect: ' . pg_last_error());
     }
 
-    public function close()
-    {
-        pg_close($this->db);
-    }
-
+    /**
+     * realiza uma busca de acordo com a $query recebida
+     */
     public function createQuery(string $query)
     {
         $result = pg_query($this->db, $query) or exit('Query failed: ' . pg_last_error());
 
-        // $resultset = array();
-        // while ($row = pg_fetch_row($result)) {
-        //     $resultset[] = $row;
-        // }
-
         $return = pg_fetch_all($result);
         
-        pg_free_result($result);
-
-        $this->close();
-
         return $return;
     }
 
+    /**
+     * Busca produtos para a lista de produtos da tela de vendas
+     */
     public function buscarProdutos()
     {
         $query = "SELECT p.id, p.nome prod_nome, p.valor prod_valor, t.id tipo_id, t.nome tipo_nome, t.porcentagem_imposto tipo_imposto
@@ -48,6 +43,9 @@ class Connection
         return $result;
     }
 
+    /**
+     * busca lista de produtos e quantidades para a tabela de estoque
+     */
     public function buscarEstoque()
     {
         $query = "SELECT id, nome FROM public.\"Produtos\"";
@@ -69,9 +67,21 @@ class Connection
                 $r = ["id" => $value['id'], "produto" => $value['nome'], "quantidade" => $quantidade];
                 array_push($result, $r);
             }
-            return $result;
         }
-        
+
+        return $result;
+    }
+
+    /**
+     * busca tipos para a seleção no cadastro de produtos
+     */
+    public function buscarTipos() {
+        $query = "SELECT id, nome FROM public.\"Tipos\"";
+        $result = pg_query($this->db, $query) or exit('Query failed: ' . pg_last_error());
+
+        $return = pg_fetch_all($result);
+     
+        return $return;
     }
 
 }

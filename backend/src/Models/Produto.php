@@ -3,8 +3,10 @@
 namespace TesteSoftexpert\Backend\Models;
 
 use TesteSoftexpert\Backend\Connection;
-// use TesteSoftexpert\Backend\Models\Tipo;
 
+/**
+ * classe modelo para a tabela Produtos
+ */
 class Produto
 {
     private $id;

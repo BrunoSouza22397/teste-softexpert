@@ -1,9 +1,11 @@
 <?php
 namespace TesteSoftexpert\Backend\Models;
 
-use PSpell\Config;
 use TesteSoftexpert\Backend\Connection;
 
+/**
+ * classe modelo para a tabela Vendas
+ */
 class Venda
 {
     private $id;

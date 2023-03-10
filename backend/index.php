@@ -5,24 +5,24 @@ require_once __DIR__ . '/vendor/autoload.php';
 use TesteSoftexpert\Backend\Connection;
 use TesteSoftexpert\Backend\Models\Tipo;
 use TesteSoftexpert\Backend\Models\Produto;
-use TesteSoftexpert\Backend\Models\Venda;
 
+//cadastra tipo
 if (array_key_exists('cadTipo', $_POST)) {
-    //cadastra tipo
     $tipo = new Tipo($_POST['tipoNome'], $_POST['tipoImp']);
     $tipo->salvarTipo();
 }
 
+//cadastra produto
 if (array_key_exists('cadProd', $_POST)) {
-    //cadastra produto
     $produto = new Produto($_POST['prodNome'], $_POST['prodVal'], $_POST['prodTipo']);
     $produto->salvarProduto();
 }
 
+//busca lista de estoque e seleção de tipos
 $db = new Connection();
 $estoque = $db->buscarEstoque();
+$tipos = $db->buscarTipos();
 ?>
-
 <html>
 
 <head>
@@ -45,11 +45,11 @@ $estoque = $db->buscarEstoque();
         <form method="POST" class="g-3">
             <div class="col-sm-3 mb-1">
                 <label for="tipoNome" class="visually-hidden">NomeTipo</label>
-                <input type="text" class="form-control" name="tipoNome" id="tipoNome" placeholder="Nome">
+                <input type="text" class="form-control" name="tipoNome" id="tipoNome" placeholder="Nome" required>
             </div>
             <div class="col-sm-3 mb-1">
                 <label for="tipoImp" class="visually-hidden">ImpostoTipo</label>
-                <input type="number" class="form-control" name="tipoImp" id="tipoImp" step=".01" placeholder="Imposto (%)">
+                <input type="number" class="form-control" name="tipoImp" id="tipoImp" step=".01" placeholder="Imposto (%)" required>
             </div>
             <div class="col-sm">
                 <input type="submit" name="cadTipo" class="btn btn-primary">
@@ -60,13 +60,22 @@ $estoque = $db->buscarEstoque();
         <h2>Cadastro de Produto</h2>
         <form method="POST" class="g-3">
             <div class="col-sm-3 mb-1">
-                <input type="text" class="form-control" name="prodNome" id="prodNome" placeholder="Nome">
+                <input type="text" class="form-control" name="prodNome" id="prodNome" placeholder="Nome" required>
             </div>
             <div class="col-sm-3 mb-1">
-                <input class="form-control" type="number" name="prodVal" id="prodVal" step=".01" placeholder="Valor(R$)">
+                <input class="form-control" type="number" name="prodVal" id="prodVal" step=".01" placeholder="Valor(R$)" required>
             </div>
             <div class="col-sm-3 mb-1">
-                <input class="form-control" type="number" name="prodTipo" id="prodTipo" placeholder="ID Tipo">
+                <select class="form-control" name="prodTipo" id="prodTipo" required>
+                    <option value="">Selecione um Tipo</option>
+                    <?php
+                    foreach ($tipos as $tipo) {
+                        ?>
+                            <option value="<?php echo $tipo['id']; ?>"><?php echo $tipo['nome']; ?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
             </div>
             <div class="col-sm-3 mb-1">
                 <a href="index.php"><input type="submit" name="cadProd" class="btn btn-primary"></a>
@@ -100,6 +109,7 @@ $estoque = $db->buscarEstoque();
     <script>
         let idCount = 0;
 
+        //atualiza a página ao enviar um formulário, evitando reenvio
         if (window.history.replaceState) {
             window.history.replaceState(null, null, window.location.href);
         }
