@@ -1,0 +1,9 @@
+{
+    "name": "teste-softexpert/backend",
+    "autoload": {
+        "psr-4": {
+            "TesteSoftexpert\\Backend\\": "src/"
+        }
+    },
+    "require": {}
+}
