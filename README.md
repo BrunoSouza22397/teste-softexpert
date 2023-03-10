@@ -1,21 +1,17 @@
 # teste-softexpert
 
-This template should help get you started developing with Vue 3 in Vite.
+Teste para vaga de dev PHP da empresa SoftExpert.
 
 ## Project Setup
 
+Na pasta /backend
 ```sh
-npm install
+composer install
+php -S localhost:8080
 ```
 
-### Compile and Hot-Reload for Development
+Dump do banco de dados no arquivo "db.sql" na raíz do projeto.
 
-```sh
-npm run dev
-```
+### Observações
 
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+Inicialmente minha idéia era criar uma aplicação single page com Vue.JS e conectá-la ao back-end através de uma api REST. Infelizmente, não consegui por questões de tempo, por isso os arquivos do Vue na raíz do projeto.
